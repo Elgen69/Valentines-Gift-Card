@@ -1,7 +1,7 @@
 /* ✅ PRESERVING ORIGINAL FLIPBOOK STYLES */
 body {
 	overflow: hidden;
-	background: linear-gradient(135deg, #FFC1CC, #FFDDE1); /* 🔥 Valentine's Aesthetic */
+	background: linear-gradient(135deg, #FFC1CC, #FFDDE1);
 	margin: 0;
 	padding: 0;
 }
@@ -86,7 +86,7 @@ body {
     background: #D63384;
 }
 
-/* 📊 LEADERBOARD */
+/* 📊 LEADERBOARD (Visitor count tracking) */
 .leaderboard {
     position: fixed;
     top: 20px;
@@ -139,5 +139,37 @@ body {
         bottom: 10px;
         left: 10px;
         font-size: 18px;
+    }
+}
+/* Orientation Message */
+.rotate-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none; /* Hidden by default */
+}
+
+/* Adjust Flipbook for Mobile */
+@media (max-width: 768px) {
+    .flipbook-viewport .flipbook {
+        width: 600px;
+        height: 300px;
+    }
+
+    .flipbook-viewport .page {
+        width: 300px;
+        height: 300px;
+    }
+
+    .flipbook-viewport .double {
+        width: 600px;
+        height: 300px;
     }
 }

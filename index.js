@@ -22,37 +22,7 @@ yepnope({
     complete: loadApp
 });
 
-// 💖 HEART & GLOWING EFFECTS
-class Tool {
-    static randomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-}
-
-class Heart {
-    constructor(ctx, x, y, r) {
-        this.ctx = ctx;
-        this.x = x;
-        this.y = y;
-        this.r = r;
-        this.c = `hsl(${Tool.randomNumber(0, 360)}, 80%, 60%)`;
-    }
-
-    draw() {
-        const ctx = this.ctx;
-        ctx.save();
-        ctx.globalCompositeOperation = "lighter";
-        ctx.globalAlpha = 0.7;
-        ctx.beginPath();
-        ctx.fillStyle = this.c;
-        ctx.moveTo(this.x, this.y + this.r);
-        ctx.bezierCurveTo(this.x - this.r * 1.3, this.y - this.r, this.x + this.r * 1.3, this.y - this.r, this.x, this.y + this.r);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-    }
-}
-
+// 💖 FLOATING HEARTS (RESTORED FROM PREVIOUS PROJECT)
 document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;
 
@@ -127,3 +97,46 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }, 15000);
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const rotateMessage = document.getElementById("rotateMessage");
+    const flipbookViewport = document.querySelector(".flipbook-viewport");
+
+    function checkOrientation() {
+        if (window.innerHeight > window.innerWidth) {
+            rotateMessage.style.display = "block";
+        } else {
+            rotateMessage.style.display = "none";
+        }
+    }
+
+    // Run on load and when resizing
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+
+    // Zoom out effect on load
+    flipbookViewport.style.transform = "scale(0.8)";
+    setTimeout(() => {
+        flipbookViewport.style.transition = "transform 0.5s ease-in-out";
+        flipbookViewport.style.transform = "scale(1)";
+    }, 500);
+});
+
+function adjustLayout() {
+    const flipbookContainer = document.querySelector('.flipbook-viewport');
+    const rotateMessage = document.querySelector('#rotateMessage');
+
+    if (window.innerWidth > window.innerHeight) {
+        // Landscape Mode: Ensure card is visible
+        flipbookContainer.style.display = 'flex';
+        flipbookContainer.style.transform = 'scale(1)'; // Reset scaling
+        if (rotateMessage) rotateMessage.style.display = 'none';
+    } else {
+        // Portrait Mode: Show rotate message & scale down card to fit
+        flipbookContainer.style.transform = 'scale(0.8)'; // Shrink card slightly
+        if (rotateMessage) rotateMessage.style.display = 'block';
+    }
+}
+
+// Detect Rotation Changes
+window.addEventListener("resize", adjustLayout);
+document.addEventListener("DOMContentLoaded", adjustLayout);
